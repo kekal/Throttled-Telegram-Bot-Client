@@ -30,6 +30,9 @@ public interface IMyTelegramBotClient : ITelegramBotClient
     /// <inheritdoc cref="TelegramBotClientExtensions.BanChatSenderChatAsync"/>
     Task BanChatSenderChatAsync(ChatId chatId, long senderChatId, CancellationToken cancellationToken = default);
 
+    /// <inheritdoc cref="TelegramBotClientExtensions.UnbanChatSenderChatAsync"/>
+    Task UnbanChatSenderChatAsync(ChatId chatId, long senderChatId, CancellationToken cancellationToken = default);
+
     /// <inheritdoc cref="TelegramBotClientExtensions.BanChatMemberAsync"/>
     Task BanChatMemberAsync(ChatId chatId, long userId, DateTime? untilDate = null, bool revokeMessages = false, CancellationToken cancellationToken = default);
 

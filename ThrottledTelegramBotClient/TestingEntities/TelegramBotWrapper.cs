@@ -95,6 +95,11 @@ public class TelegramBotWrapper(string botToken) : IMyTelegramBotClient
         await _client.BanChatSenderChatAsync(chatId, senderChatId, cancellationToken);
     }
 
+    public async Task UnbanChatSenderChatAsync(ChatId chatId, long senderChatId, CancellationToken cancellationToken = default)
+    {
+        await _client.UnbanChatSenderChatAsync(chatId, senderChatId, cancellationToken);
+    }
+
     public async Task BanChatMemberAsync(ChatId chatId, long userId, DateTime? untilDate = null, bool revokeMessages = false, CancellationToken cancellationToken = default)
     {
         await _client.BanChatMemberAsync(chatId, userId, untilDate, revokeMessages, cancellationToken);

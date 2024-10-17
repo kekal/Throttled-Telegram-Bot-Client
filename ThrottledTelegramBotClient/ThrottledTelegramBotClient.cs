@@ -21,6 +21,7 @@ public sealed class ThrottledTelegramBotClient(IMyTelegramBotClient client, Time
     private readonly SemaphoreSlim _semaphore = new(1, 1);
     public long? BotId => client.BotId;
 
+    /// <inheritdoc cref="TelegramBotClientExtensions.GetUpdatesAsync"/>
     public async Task<Update[]> GetUpdatesAsync(int? offset, int? limit, int? timeout, IEnumerable<UpdateType>? allowedUpdates = default, CancellationToken cancellationToken = default)
     {
         return await (client.GetUpdatesAsync(offset, limit, timeout, allowedUpdates, cancellationToken) ?? throw new InvalidOperationException("Client is no instantiated"));
@@ -88,6 +89,10 @@ public sealed class ThrottledTelegramBotClient(IMyTelegramBotClient client, Time
     /// <inheritdoc cref="TelegramBotClientExtensions.BanChatSenderChatAsync"/>
     public Task BanChatSenderChatAsync(ChatId chatId, long senderChatId, CancellationToken cancellationToken = default) =>
         ExecuteWithDelayAsync(() => client.BanChatSenderChatAsync(chatId, senderChatId, cancellationToken));
+
+    /// <inheritdoc cref="TelegramBotClientExtensions.UnbanChatSenderChatAsync"/>
+    public Task UnbanChatSenderChatAsync(ChatId chatId, long senderChatId, CancellationToken cancellationToken = default) =>
+        ExecuteWithDelayAsync(() => client.UnbanChatSenderChatAsync(chatId, senderChatId, cancellationToken));
 
     /// <inheritdoc cref="TelegramBotClientExtensions.BanChatMemberAsync"/>
     public Task BanChatMemberAsync(ChatId chatId, long userId, DateTime? untilDate = null, bool revokeMessages = false, CancellationToken cancellationToken = default) =>
